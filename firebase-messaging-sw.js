@@ -1,3 +1,6 @@
+// Share App Service Worker v2
+const CACHE_VERSION = 'share-v2';
+
 importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js');
 
@@ -16,8 +19,8 @@ messaging.onBackgroundMessage(payload => {
   const { title, body, icon } = payload.notification || {};
   self.registration.showNotification(title || 'Share', {
     body: body || 'You have a new notification',
-    icon: icon || '/icon-192.png',
-    badge: '/icon-192.png',
+    icon: icon || '/icon-192.svg',
+    badge: '/icon-192.svg',
     vibrate: [200, 100, 200],
     tag: 'share-notif'
   });
@@ -34,3 +37,11 @@ self.addEventListener('notificationclick', event => {
     })
   );
 });
+
+// Force old SW to be replaced immediately
+self.addEventListener('install', e => self.skipWaiting());
+self.addEventListener('activate', e => e.waitUntil(
+  caches.keys().then(keys =>
+    Promise.all(keys.filter(k => k !== CACHE_VERSION).map(k => caches.delete(k)))
+  ).then(() => self.clients.claim())
+));
