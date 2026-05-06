@@ -1,5 +1,5 @@
-// Share App Service Worker v5
-const CACHE_VERSION = 'share-v5';
+// Share App Service Worker v6
+const CACHE_VERSION = 'share-v6';
 
 importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js');
