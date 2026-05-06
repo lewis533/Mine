@@ -1,5 +1,5 @@
-// Share App Service Worker v2
-const CACHE_VERSION = 'share-v2';
+// Share App Service Worker v3
+const CACHE_VERSION = 'share-v3';
 
 importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js');
@@ -38,7 +38,6 @@ self.addEventListener('notificationclick', event => {
   );
 });
 
-// Force old SW to be replaced immediately
 self.addEventListener('install', e => self.skipWaiting());
 self.addEventListener('activate', e => e.waitUntil(
   caches.keys().then(keys =>
